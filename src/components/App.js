@@ -3,9 +3,12 @@ import '../styles/App.css';
 import  BMSNavbar  from './BMSNavbar';
 import Home from './Home';
 import {BrowserRouter as Router, Routes , Route} from 'react-router-dom';
-import Test from './Test';
+import Test from './BookTicket';
 import Register from './Register';
 import Login from './Login';
+import Favorites from './Favorites';
+import BookTicket from './BookTicket';
+import Payment from './Payment';
 const App = () => {
 
 
@@ -15,9 +18,11 @@ const App = () => {
       <BMSNavbar/>
         <Routes>
           <Route exact path ="/" element={<Home/>}/>
-          <Route path ="/test"  element={<Test/>}/>
           <Route path ="/register"  element={<Register/>}/>
           <Route path ="/login"  element={<Login/>}/>
+          <Route path ="/favourites"  element={<Favorites/>}/>
+          <Route path ="/bookticket"  element={<BookTicket/>}/>
+          <Route path ="/payment"  element={<Payment/>}/>
         </Routes>
       </Router>
     </div>

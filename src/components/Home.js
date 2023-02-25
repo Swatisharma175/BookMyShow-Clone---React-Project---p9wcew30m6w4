@@ -7,26 +7,46 @@ import Button from 'react-bootstrap/Button';
 import BMSSidebar from './BMSSidebar';
 import Modal from 'react-bootstrap/Modal';
 import Image from 'react-bootstrap/Image'
-
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-
-
 export default function Home() {
+  const navigate = new useNavigate();
   const [items, setItems] = useState([]);
   const [genreId, setGenreId] = useState("");
   const [genreName, setGenreName] = useState("");
   const [movieModal, setMovieModal] = useState();
   const [show, setShow] = useState(false);
-  const [searchItem,setSearchItem] = useState([]);
-
+  const isLogin = localStorage.getItem("login");
+  // const [searchItem,setSearchItem] = useState([]);
+  const [favouriteMovie ,setFavoriteMovie] = useState([]);
+  
   const handleClose = () => {
     setShow(false);
   }
-  const saveToFavorites=() =>{
-    console.log("swati")
-    //  if(localStorage.getItem("login"))
+  const bookTicket =(item)=>{
+    if(!isLogin){
+      navigate('/login');
+    }
+     const price = document.querySelector('#ticketPrice').innerText;
+     console.log(price);
+     navigate('/bookticket',{ state : {name:item.title,price:price}});
   }
- 
+  const saveToFavorites=(item) =>{
+    if(!isLogin){
+        alert("you are not logged in");
+        navigate("/login")
+    }
+
+    const favouriteMovieList = JSON.parse(localStorage.getItem('favoriteMovieList')) || [];
+    console.log("ITem:",item,favouriteMovieList); 
+    setFavoriteMovie([...favouriteMovieList,item]);
+    console.log(favouriteMovie);
+    localStorage.setItem('favoriteMovieList',JSON.stringify(favouriteMovie));
+    console.log("Mvoe",favouriteMovie);
+  }
+  const getRandomNumber= (min,max) => {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
   const handleShow = (modalInfo) => 
   { 
     console.log(modalInfo);
@@ -37,7 +57,7 @@ export default function Home() {
   
   const imgUri = "https://image.tmdb.org/t/p/original/";
   const pull_data = (data) => {
-     console.log("Items: " , items);
+    //  console.log("Items: " , items);
      setGenreId(data.id);
      setGenreName(data.name);
   }
@@ -50,7 +70,7 @@ export default function Home() {
       .then((res) => res.json())
       .then(
         (result) => {
-            console.log(result.results);
+            // console.log(result.results);
           setItems(result.results);
           //   console.log(items);
         },
@@ -112,14 +132,20 @@ export default function Home() {
           <li><h4><i class="fa-solid fa-star "></i>{movieModal.vote_average}/10</h4></li>
           <li className='uppercase'>{movieModal.original_language}</li>
           <li>{movieModal.overview}</li>
+          <li>Rs.<p id="ticketPrice">{getRandomNumber(100,300)}</p></li>
           </ul></div></Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={() =>bookTicket(movieModal)} >
             Book Ticket
+           
           </Button>
-          <Button variant="primary" onClick={saveToFavorites}>
+            {(favouriteMovie.includes(movieModal)) ?
+          <Button variant="primary" onClick={() =>saveToFavorites(movieModal)}>
             +Wishlist
           </Button>
+            : <Button variant="primary" onClick={() =>saveToFavorites(movieModal)}>
+            +Wishlist
+          </Button>}  
         </Modal.Footer>  
       </Modal> : ""
 }

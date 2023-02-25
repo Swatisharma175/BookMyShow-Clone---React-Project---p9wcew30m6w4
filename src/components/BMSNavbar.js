@@ -12,37 +12,34 @@ import BookMyShowSvg from '../images/BMSSvg';
 
 function BMSNavbar() {
   let timer;
-  // const navigate = useNavigate();
   const [items, setItems] = useState([]);
   const [final, setFinal] = useState([]);
   const [isLogin,setIsLogin] = useState(localStorage.getItem("login"));
-  console.log(localStorage.getItem("login"),isLogin);
   const [loginUser,setLoginUser] = useState("");
   const navigate = useNavigate();
-   
-
+  
+  
   const nowPlayingUri =
-    "https://api.themoviedb.org/3/movie/now_playing?api_key=5734bda21a5245b75d2933c869017937&language=en-US&page=1";
-
+  "https://api.themoviedb.org/3/movie/now_playing?api_key=5734bda21a5245b75d2933c869017937&language=en-US&page=1";
+  
   const imgUri = "https://image.tmdb.org/t/p/original/";
-
+  
   useEffect(() => {
-    console.log(isLogin,localStorage.getItem("name"));
-    console.log(isLogin);
-    if(isLogin === true){
+    if(isLogin){
       const user = localStorage.getItem("name");
+      console.log(user);
       setLoginUser(user);
     }
     fetch(nowPlayingUri)
       .then((res) => res.json())
       .then(
         (result) => {
-            console.log(result);
+            // console.log(result);
           setItems(result.results);
           //   console.log(items);
         },
         (error) => {
-          console.log(error);
+          // console.log(error);
         }
       );
   }, []);
@@ -51,7 +48,7 @@ function BMSNavbar() {
     if (timer) clearTimeout(timer);
     timer = setTimeout(() => {
       const searchResults = document.querySelector(".search-results");
-      console.log(inputSearch)
+      (inputSearch)
       if (inputSearch === "") {
         if (!searchResults.classList.contains("hidden")) {
           searchResults.classList.add("hidden");
@@ -64,14 +61,15 @@ function BMSNavbar() {
             item.title.toLowerCase().includes(inputSearch.toLowerCase())
           )
           .slice(0, 5);
-          console.log(result);
+          // console.log(result);
         setFinal(result);
       }
     }, 500);
   };
   const logout =() =>{
     console.log("logout")
-    localStorage.setItem("login",false);
+    localStorage.removeItem("login");
+    localStorage.removeItem('favoriteMovieList');
     setIsLogin(false);
     navigate('/');
   }
@@ -104,8 +102,8 @@ function BMSNavbar() {
             className="my-2 my-lg-0"     
             navbarScroll
           >
-            <Nav.Link href="#action1"><i className="fa-regular fa-heart fa-2x"></i></Nav.Link>
-            {(isLogin === 'true') ?
+            <Nav.Link href="/favourites"><i className="fa-regular fa-heart fa-2x"></i></Nav.Link>
+            {(isLogin)  ?
             <NavDropdown title={loginUser} id="navbarScrollingDropdown">
               <NavDropdown.Item href="#action3">Booked Seat</NavDropdown.Item>
               <NavDropdown.Divider />

@@ -49,7 +49,7 @@ function BMSSidebar(props) {
           setItems(result.genres);
         },
         (error) => {
-          console.log(error);
+          // console.log(error);
         }
       );
 

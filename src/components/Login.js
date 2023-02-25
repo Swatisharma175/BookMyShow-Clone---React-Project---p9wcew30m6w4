@@ -14,18 +14,18 @@ function Login() {
     const email = useRef()
     const password = useRef()
     const emailRegisterd = localStorage.getItem("signUp");
-    const isLogin = localStorage.getItem("login");
     const passwordRegisterd = localStorage.getItem("password");
     const [validEmail, setValidEmail] = useState(true);
     const [validPassword, setValidPassword] = useState(true);
     const [validCredtials, setValidCredentials] = useState(true);
     const navigate = useNavigate();
-
+    
     useEffect(()=>{
-        console.log("IsLogin" ,localStorage.getItem("login"));
-        // if(isLogin){
-        //     navigate("/");
-        // }
+        const isLogin = localStorage.getItem("login");
+        // console.log("IsLogin",localStorage.getItem("login") , isLogin);
+        if(isLogin){
+            navigate("/");
+        }
     })
     const handleClick = async () => {
         const isValidEmail = await emailSchema.isValid({ email: email.current.value });
@@ -33,6 +33,7 @@ function Login() {
         const isValidPassword = await passwordSchema.isValid({
             password: password.current.value,
         });
+        setValidPassword(isValidPassword);
         if(isValidEmail && isValidPassword){
             const emailMatch = (emailRegisterd === email.current.value );
            

@@ -11,6 +11,8 @@ import {
   } from "../schema/userSchema";
   
 function Register(){
+    // console.log("Signup",localStorage.getItem("login"));
+    
     const name = useRef()
     const email = useRef()
     const password = useRef()
@@ -20,10 +22,10 @@ function Register(){
     const [validPassword, setValidPassword] = useState(true);
     const [validConfirmPassword, setValidConfirmPassword] = useState(true);
     const navigate = useNavigate();
-    console.log(localStorage.getItem("name"),localStorage.getItem('email'),
-     localStorage.getItem("login"));
+    // console.log(localStorage.getItem("name"),localStorage.getItem('email'),
+    //  localStorage.getItem("login"));
     useEffect(()=>{
-        console.log("IsLogin" ,localStorage.getItem("login"), isLogin);       
+        // console.log("IsLogin" ,localStorage.getItem("login"), isLogin);       
          if(isLogin == true){
             navigate("/");
         }
@@ -39,7 +41,7 @@ function Register(){
         setValidPassword(isValidPassword);
         const isSamePassword = password.current.value === confirmPassword.current.value;
         setValidConfirmPassword(password === confirmPassword);
-        console.log(isValidEmail,isValidName,isValidPassword,isSamePassword);
+        // console.log(isValidEmail,isValidName,isValidPassword,isSamePassword);
         if(isValidName && isValidEmail && isValidPassword && isSamePassword){
         
          localStorage.setItem("name",name.current.value);
@@ -50,16 +52,16 @@ function Register(){
          navigate("/login");
          
         }else{
-           console.log("couldNot Save");
+        //    console.log("couldNot Save");
         }
         const localSignup = localStorage.getItem("signUp");
-        console.log(localSignup);
+        // console.log(localSignup);
     }
     return (
         <div>
             <Container className="LoginRegisterBox">
                 <Form className="LoginRegisterForm">
-                 <h1 className="text-center">SignUp<i class="fa-solid fa-lock"></i></h1>
+                 <h1 className="text-center">SignUp<i className="fa-solid fa-lock"></i></h1>
                
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     {/* <Form.Label>Name</Form.Label> */}
