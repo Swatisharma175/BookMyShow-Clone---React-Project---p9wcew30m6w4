@@ -102,7 +102,7 @@ function BMSNavbar() {
             className="my-2 my-lg-0"     
             navbarScroll
           >
-            <Nav.Link href="/favourites"><i className="fa-regular fa-heart fa-2x"></i></Nav.Link>
+            <Nav.Link href="/favorites"><i className="fa-regular fa-heart fa-2x"></i></Nav.Link>
             {(isLogin)  ?
             <NavDropdown title={loginUser} id="navbarScrollingDropdown">
               <NavDropdown.Item href="#action3">Booked Seat</NavDropdown.Item>
