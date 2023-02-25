@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import React, { useState } from 'react'
 import { useEffect  } from 'react';
 import Container from 'react-bootstrap/esm/Container';
-import '../styles/bookTicket.css';
+import '../styles/BookTicket.css';
 import { useLocation , useNavigate} from 'react-router-dom';
 
 export default function BookTicket()  {
