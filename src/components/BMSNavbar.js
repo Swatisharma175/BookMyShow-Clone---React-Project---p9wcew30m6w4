@@ -102,15 +102,15 @@ function BMSNavbar() {
             className="my-2 my-lg-0"     
             navbarScroll
           >
-            <Nav.Link href="favorites"><i className="fa-regular fa-heart fa-2x"></i></Nav.Link>
+            <Link to="/favorites" className='text-decore-none p-1'><i className="fa-regular fa-heart fa-2x"></i></Link>
             {(isLogin)  ?
             <NavDropdown title={loginUser} id="navbarScrollingDropdown">
-              <NavDropdown.Item to="bookedseat">Booked Seat</NavDropdown.Item>
+              <NavDropdown.Item><Link className='text-decore-none' to="/bookedseat">Booked Seat</Link></NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={logout}>
                 Logout
               </NavDropdown.Item>
-            </NavDropdown> : <Nav.Link href="/register">SignUp</Nav.Link>
+            </NavDropdown> : <Link href="/register">SignUp</Link>
 } 
           </Nav>
         </Navbar.Collapse>
@@ -119,7 +119,7 @@ function BMSNavbar() {
       <Container className="search-results hidden">
         {final.map((searchList) => (
           <div className="outerbox" key={searchList.id}>
-            <Link to="/" onClick={searchClick}>
+            <Link className='text-decore-none' to="/" onClick={searchClick}>
             {/* {"/movie/" + searchList.id} */}
               <div className="search-dropdown-menu">
                 <div className="search-dropdown-image">

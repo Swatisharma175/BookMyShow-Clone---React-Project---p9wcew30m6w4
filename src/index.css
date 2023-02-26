@@ -12,6 +12,13 @@
 .text-white{
     color: white !important;
 }
+.text-decore-none{
+  text-decoration: none;
+  color: inherit;
+}
+.text-decore-none:hover{
+  color: white;
+}
 .mt-4{
     margin-top: 15vh !important;
 }
